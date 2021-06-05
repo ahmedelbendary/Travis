@@ -12,14 +12,5 @@ before_install:
 - echo -e "Host ${IPADDR}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key ec2-user@${IPADDR} pwd
-
 script:
 - dig +short myip.opendns.com @resolver1.opendns.com
-
-#after_success:
-#- echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
-##- cat  /tmp/ssh_rsa
-#- chmod 600 /tmp/ssh_rsa
-#- ssh -o "StrictHostKeyChecking no" ec2-user@${IPADDR} -i /tmp/ssh_rsa "dig +short
-  #myip.opendns.com @resolver1.opendns.com && docker build -t ${IMGNAME} . && docker
-  #run --name discordbot --restart always -d  ${IMGNAME}"
