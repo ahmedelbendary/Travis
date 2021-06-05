@@ -1,24 +1,21 @@
 arch:
-  - arm64
-
+- arm64
 env:
-  - IMGNAME=bradmorg/ubuntu:dbot
-
+- IMGNAME=bradmorg/ubuntu:dbot
 services:
-  - docker
-
+- docker
 before_install:
+- openssl aes-256-cbc -K $encrypted_dfdcfd5172af_key -iv $encrypted_dfdcfd5172af_iv
+  -in deploy_key.enc -out ./deploy_key -d
 - docker image build -t ${IMGNAME} .
-
 script:
-#TravisCI seems to be coming in on undocumented IP addresses.
- - dig +short myip.opendns.com @resolver1.opendns.com
- - echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
- - cat  /tmp/ssh_rsa
-
-
+- dig +short myip.opendns.com @resolver1.opendns.com
+- echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
+- cat  /tmp/ssh_rsa
 after_success:
 - echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
 - cat  /tmp/ssh_rsa
 - chmod 600 /tmp/ssh_rsa
-- ssh -o "StrictHostKeyChecking no" ec2-user@${IPADDR} -i /tmp/ssh_rsa "dig +short myip.opendns.com @resolver1.opendns.com && docker build -t ${IMGNAME} . && docker run --name discordbot --restart always -d  ${IMGNAME}"
+- ssh -o "StrictHostKeyChecking no" ec2-user@${IPADDR} -i /tmp/ssh_rsa "dig +short
+  myip.opendns.com @resolver1.opendns.com && docker build -t ${IMGNAME} . && docker
+  run --name discordbot --restart always -d  ${IMGNAME}"
