@@ -7,20 +7,19 @@ services:
 before_install:
 - openssl aes-256-cbc -K $encrypted_dfdcfd5172af_key -iv $encrypted_dfdcfd5172af_iv
   -in deploy_key.enc -out ./deploy_key -d
-- eval "$(ssh-agent -s)"  
+- eval "$(ssh-agent -s)"
 - chmod 600 ./deploy_key
 - echo -e "Host ${IPADDR}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key ec2-user@${IPADDR} pwd
-#- docker image build -t ${IMGNAME} .
+
 script:
 - dig +short myip.opendns.com @resolver1.opendns.com
-#- echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
-#- cat  /tmp/ssh_rsa
+
 #after_success:
-- echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
-- cat  /tmp/ssh_rsa
-- chmod 600 /tmp/ssh_rsa
-- ssh -o "StrictHostKeyChecking no" ec2-user@${IPADDR} -i /tmp/ssh_rsa "dig +short
-  myip.opendns.com @resolver1.opendns.com && docker build -t ${IMGNAME} . && docker
-  run --name discordbot --restart always -d  ${IMGNAME}"
+#- echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
+##- cat  /tmp/ssh_rsa
+#- chmod 600 /tmp/ssh_rsa
+#- ssh -o "StrictHostKeyChecking no" ec2-user@${IPADDR} -i /tmp/ssh_rsa "dig +short
+  #myip.opendns.com @resolver1.opendns.com && docker build -t ${IMGNAME} . && docker
+  #run --name discordbot --restart always -d  ${IMGNAME}"
