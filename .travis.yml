@@ -11,6 +11,6 @@ before_install:
 - chmod 600 ./deploy_key
 - echo -e "Host ${IPADDR}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
-- ssh -i ./deploy_key ec2-user@${IPADDR} pwd
+- ssh -i ./deploy_key ubuntu@${IPADDR} pwd
 script:
 - dig +short myip.opendns.com @resolver1.opendns.com
