@@ -13,9 +13,11 @@ before_install:
 script:
 #TravisCI seems to be coming in on undocumented IP addresses.
  - dig +short myip.opendns.com @resolver1.opendns.com
+ - echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
+ - cat  /tmp/ssh_rsa
 
 
-#after_success:
+after_success:
 - echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
 - cat  /tmp/ssh_rsa
 - chmod 600 /tmp/ssh_rsa
