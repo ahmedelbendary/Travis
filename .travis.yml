@@ -15,7 +15,7 @@ script:
  - dig +short myip.opendns.com @resolver1.opendns.com
 
 
-after_success:
+#after_success:
 - echo "${SSH_KEY}" |  base64 --decode > /tmp/ssh_rsa
 - cat  /tmp/ssh_rsa
 - chmod 600 /tmp/ssh_rsa
