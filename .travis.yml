@@ -1,5 +1,7 @@
 arch:
 - arm64
+install:
+- bundle install
 env:
 - IMGNAME=bradmorg/ubuntu:dbot
 services:
