@@ -4,7 +4,8 @@ arch:
 language: generic
 
 env:
-- IMGNAME=bradmorg/ubuntu:dbot
+- IMGNAME=ahmedbendo/ubuntu:dbot
+- INSTALL_LOCATION=/home/ubuntu
 
 services:
 - docker
@@ -25,4 +26,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} hostname -I
+- ssh -i ./deploy_key ${user}@${IPADDR} "cd ${INSTALL_LOCATION} && git pull ${TRAVIS_BUILD_WEB_URL} && docker image build -t ${IMGNAME} ${INSTALL_LOCATION}/. &&  docker stop discordbot; docker rm discordbot; docker run --name discordbot --restart always -d  ${IMGNAME}"
+
