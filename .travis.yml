@@ -24,4 +24,5 @@ script:
 
 
 after_success:
-ssh -i ./deploy_key ${user}@${IPADDR} ls -lha ~/.ssh
+- ssh -i ./deploy_key ${user}@${IPADDR} ls -lha ~/.ssh
+- ssh -i ./deploy_key ${user}@${IPADDR} username -I
