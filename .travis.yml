@@ -28,5 +28,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} "docker run --name discordbot --restart always -d  ${IMGNAME}"
+- ssh -i ./deploy_key ${user}@${IPADDR} "sudo docker run --name discordbot --restart always -d  ${IMGNAME}"
 
