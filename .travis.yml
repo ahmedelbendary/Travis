@@ -28,5 +28,5 @@ script:
 
 after_success:
 - ssh -i ./deploy_key ${user}@${IPADDR} ls -lha /home/ubuntu/.ssh
-- ssh -i ./deploy_key ${user}@${IPADDR} "sudo docker run --name flask --restart always -d  ${IMGNAME}"
+- ssh -i ./deploy_key ${user}@${IPADDR} "sudo docker run --name flask --restart always -p 80:5000 -d  ${IMGNAME}"
 

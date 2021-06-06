@@ -1,17 +1,11 @@
-FROM ubuntu:18.04
-
-RUN apt-get update
-RUN apt-get install python3 -y
-RUN apt-get install python3-pip -y
-
-ENV HOME /home
-COPY dbot.py /home/dbot.py
-STOPSIGNAL SIGTERM
-WORKDIR /home
-
-COPY requirements.txt /home/requirements.txt
-RUN pip3 install -r requirements.txt
-
-ENTRYPOINT ["python3"]
-
-CMD ["dbot.py"]
+# syntax=docker/dockerfile:1
+FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP=dbot.py
+ENV FLASK_RUN_HOST=0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+EXPOSE 5000
+COPY . .
+CMD ["flask", "run"]
