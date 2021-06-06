@@ -17,7 +17,7 @@ before_install:
 - echo -e "Host ${IPADDR}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 - ssh-add ./deploy_key
 - ssh -i ./deploy_key ${user}@${IPADDR} pwd
-#- docker image build -t ${IMGNAME} .
+- docker image build -t ${IMGNAME} .
 
 script:
 - dig +short myip.opendns.com @resolver1.opendns.com
